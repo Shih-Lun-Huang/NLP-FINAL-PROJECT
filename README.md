@@ -3,16 +3,16 @@
 文字探勘與自然語言處理的期末小專題
 
 ### 題目：
-使用美國大選時期新聞(True.csv)，透過自然語言處理課程的程式碼(文字前處理)回答以下三個問題：
+使用美國大選時期新聞資料集(True.csv)，透過自然語言處理課程的程式碼回答以下三個問題：
 
 ![題目](https://github.com/Shih-Lun-Huang/NLP-FINAL-PROJECT/blob/main/img/pb.jpg)
 
 *p.s.題目並未描述的很詳細，可自行發揮*
 
 因此將題目的理解如下：
-1. 第一題：將每篇新聞的文章內容透過情感分析標記正、負、中立新聞
-2. 第二題：將每篇文章依據彼此的關聯相似程度，決定此資料集的新聞有多少個主題？
-3. 第三題：找出哪些新聞具有偏誤(bias)。這裡根據資料集`subject`欄位與分群結果，找出該新聞可能不適合被歸類在該主題的新聞。
+1. 第一題：將每篇新聞的文章內容透過情感分析**標記正、負、中立**。
+2. 第二題：將每篇文章依據彼此的關聯相似程度，決定此資料集的新聞有**多少個主題(群)**。
+3. 第三題：找出哪些新聞具有**偏誤**(bias)。這裡根據資料集`subject`欄位與分群結果，找出該新聞可能不適合被歸類在該主題的新聞。
 
 ### 流程圖：
 
@@ -46,14 +46,14 @@
   ![情感分析結果](https://github.com/Shih-Lun-Huang/NLP-FINAL-PROJECT/blob/main/img/senti.png)
 
 ### 第二題：
-- 作法：將新聞內文透過`CountVectorizer()` 轉換成tf_idf矩陣，得到文章向量，透過`t-SNE`降至2維並使用`AgglomerativeClustering`(階層式分群) + `silhouette_score`(輪廓分析法)找出適合的分群數量，決定所有文章大致有多少群（每一群視為一個主題），最後視覺化。p.s.另有嘗試K-means+手肘法找最佳分群數但效果不佳
+- 作法：將新聞內文透過`CountVectorizer()` 轉換成tf-idf矩陣，得到文章向量，透過`t-SNE`降至2維並使用`AgglomerativeClustering`(階層式分群) + `silhouette_score`(輪廓分析法)找出適合的分群數量，決定所有文章大致有多少群（每一群視為一個主題），最後視覺化。p.s.另有嘗試K-means+手肘法找最佳分群數但效果不佳
 * 結果：
-  - 最佳分群數:
+  - 輪廓分析法決定最佳分群數:
   ![最佳分群數](https://github.com/Shih-Lun-Huang/NLP-FINAL-PROJECT/blob/main/img/group.png)
   - 視覺化結果:
   ![視覺化結果](https://github.com/Shih-Lun-Huang/NLP-FINAL-PROJECT/blob/main/img/tsne.png)
 ### 第三題：
-- 作法：透過視覺化結果可以發現部分群集存在兩個主題(subject)比例懸殊的現象，將該群懸殊且較少比例的文章視為偏誤（代表在該主題下，有少部分的文章應該適合另一個主題）
+- 作法：透過視覺化結果可以發現部分群集存在兩個主題(subject)**比例懸殊**的現象，將**該群懸殊比例且較少文章主題**視為**偏誤**（代表在該主題下，有少部分的文章應該適合另一個主題）
 * 結果：
   - 下圖整理出`subject`在每個主題的比例，可以發現有些主題`subject`比例懸殊。
   ![懸殊](https://github.com/Shih-Lun-Huang/NLP-FINAL-PROJECT/blob/main/img/bias.png)
